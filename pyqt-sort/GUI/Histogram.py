@@ -1,9 +1,10 @@
 import sys
 from typing import List
 from PyQt5.QtCore import Qt, QRect
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QPainter, QPen, QBrush
 from PyQt5.QtWidgets import *
 from PyQt5.QtTest import QTest
+from algorithms.insertion_sort import InsertionSort
 
 class Histogram(QWidget):
 
@@ -12,27 +13,23 @@ class Histogram(QWidget):
 
         self.height = height
         self.width = width
-        self.data = data
+        self.iterator = InsertionSort(data)
         self.i = self.j = -1
-        self.rectangles = self.data2QRect(self.data)
+        self.rectangles = self.data2QRect(data)
 
         self.resize(self.width, self.height)
         self.setStyleSheet('background-color: black')
 
         self.show()
-
         self.sort()
 
     def sort(self) -> None:
-        N = len(self.data)
-        for i in range(N):
-            for j in range(i):
-                self.i, self.j = i, j
-                if self.data[i] < self.data[j]:
-                    self.data[i], self.data[j] = self.data[j], self.data[i]
-                self.rectangles = self.data2QRect(self.data)
-                self.update()
-                QTest.qWait(500)
+        while self.iterator.hasNext():
+            self.i, self.j = self.iterator.getPointers()
+            self.rectangles = self.data2QRect(self.iterator.next())
+            self.update()
+            QTest.qWait(1)
+
         self.i = self.j = -1
         self.update()
 
@@ -40,15 +37,16 @@ class Histogram(QWidget):
         painter = QPainter(self)
 
         for i, rectangle in enumerate(self.rectangles):
-            if i in (self.i, self.j): painter.setPen(QPen(Qt.red, 1, Qt.SolidLine))
-            else: painter.setPen(QPen(Qt.white, 1, Qt.SolidLine))
+            color = Qt.red if i in (self.i, self.j) else Qt.white
+            painter.setPen(QPen(Qt.black, 1, Qt.SolidLine))
             painter.drawRect(rectangle)
+            painter.fillRect(rectangle, QBrush(color, Qt.SolidPattern))
 
     def data2QRect(self, data: List[int]) -> List[QRect]:
         res = []
         mxHeight = max(data)
-        thick = self.width // len(data) - 1
-        x = 10
+        thick = self.width // len(data)
+        x = 0
         for val in data:
             tall = round((val / mxHeight) * self.height)
             res.append(QRect(x, self.height - tall, thick, tall))
