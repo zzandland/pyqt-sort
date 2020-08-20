@@ -9,8 +9,8 @@ class MainWindow(QMainWindow):
     def __init__(self, data: List[int]):
         super(MainWindow, self).__init__()
 
-        self.height = 500
-        self.width = 1000
+        self.height = 700
+        self.width = 1200
         self.data = data
 
         self.resize(self.width, self.height)
