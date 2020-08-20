@@ -4,7 +4,7 @@ from algorithms.iterator import Iterator
 class InsertionSort(Iterator):
 
     def __init__(self, data: List[int]):
-        self.data = data
+        super().__init__(data)
         self.i, self.j = 1, 0
         self.end = False
 
