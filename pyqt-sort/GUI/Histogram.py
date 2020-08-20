@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtGui import QPainter, QPen, QBrush
 from PyQt5.QtWidgets import *
 from PyQt5.QtTest import QTest
-from algorithms import insertion_sort, bubble_sort, selection_sort
+from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort
 
 class Histogram(QWidget):
 
@@ -13,7 +13,7 @@ class Histogram(QWidget):
 
         self.height = height
         self.width = width
-        self.iterator = selection_sort.SelectionSort(data)
+        self.iterator = insertion_sort.InsertionSort(data)
         self.i = self.j = -1
         self.rectangles = self.data2QRect(data)
 
