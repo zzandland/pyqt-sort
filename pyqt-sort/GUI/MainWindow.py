@@ -11,9 +11,10 @@ class MainWindow(QMainWindow):
 
         self.height = 500
         self.width = 1000
+        self.data = data
 
         self.resize(self.width, self.height)
-        diagram = Histogram(data, self.height, self.width)
+        diagram = Histogram(self.data, self.height, self.width)
 
         self.setCentralWidget(diagram)
 
