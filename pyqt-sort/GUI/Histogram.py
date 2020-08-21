@@ -30,9 +30,6 @@ class Histogram(QWidget):
         self.changeAlgorithm('bubble')
         self.stop = False
 
-        self.setFixedSize(self.w, self.h)
-        self.setStyleSheet('background-color: black')
-
         self.show()
 
     def changeAlgorithm(self, algo: str) -> None:

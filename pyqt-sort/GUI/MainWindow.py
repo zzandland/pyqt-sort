@@ -10,9 +10,10 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.h = 700
-        self.w = 1200
-        self.N = 150
+        self.w = 1500
+        self.N = 250
         self.setFixedSize(self.w, self.h)
+        self.setStyleSheet('background-color: black')
 
         self.genMenuBar()
 
