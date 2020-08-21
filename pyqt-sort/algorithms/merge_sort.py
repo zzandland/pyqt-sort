@@ -38,22 +38,23 @@ class MergeSort(Iterator):
                 self.merge = False
                 self.tmp = []
         else:
-            l, r = self.st.pop()
-            if not self.st and (l, r) in self.seen:
-                self.end = True
-            elif not self.st or (l, r) not in self.seen:
-                self.seen.add((l, r))
-                if l < r:
-                    m = l + (r-l) // 2
-                    self.st += [(m+1, r), (l, m)]
-                else:
-                    self.st.append((l, r))
-            elif (l, r) in self.seen:
-                if self.st[-1] in self.seen: self.prepareMerge(l, r)
-                else:
-                    tmp = self.st.pop()
-                    self.st.append((l, r))
-                    self.st.append(tmp)
+            while self.st and not self.merge:
+                l, r = self.st.pop()
+                if not self.st and (l, r) in self.seen:
+                    self.end = True
+                elif not self.st or (l, r) not in self.seen:
+                    self.seen.add((l, r))
+                    if l < r:
+                        m = l + (r-l) // 2
+                        self.st += [(m+1, r), (l, m)]
+                    else:
+                        self.st.append((l, r))
+                elif (l, r) in self.seen:
+                    if self.st[-1] in self.seen: self.prepareMerge(l, r)
+                    else:
+                        tmp = self.st.pop()
+                        self.st.append((l, r))
+                        self.st.append(tmp)
         return self.data
 
     def prepareMerge(self, l2: int, r2: int) -> None:
