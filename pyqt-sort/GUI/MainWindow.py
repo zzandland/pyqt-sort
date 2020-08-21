@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
 
         self.h = 700
         self.w = 1200
-        self.N = 100
+        self.N = 150
         self.setFixedSize(self.w, self.h)
 
         self.genMenuBar()
@@ -25,18 +25,34 @@ class MainWindow(QMainWindow):
 
     def genMenuBar(self) -> None:
         menubar = self.menuBar()
+
         file = menubar.addMenu('File')
+
         start = QAction('Start', self)
-        stop = QAction('Stop', self)
-        file.addAction(start)
-        file.addAction(stop)
         start.triggered.connect(self.start)
+        file.addAction(start)
+
+        stop = QAction('Stop', self)
         stop.triggered.connect(self.stop)
+        file.addAction(stop)
 
         algorithms = menubar.addMenu('Algorithms')
 
         bubble = QAction('Bubble Sort', self)
+        bubble.triggered.connect(lambda: self.diagram.changeAlgorithm('bubble'))
         algorithms.addAction(bubble)
+
+        insertion = QAction('Insertion Sort', self)
+        insertion.triggered.connect(lambda: self.diagram.changeAlgorithm('insertion'))
+        algorithms.addAction(insertion)
+
+        selection = QAction('Selection Sort', self)
+        selection.triggered.connect(lambda: self.diagram.changeAlgorithm('selection'))
+        algorithms.addAction(selection)
+
+        quick = QAction('Quick Sort', self)
+        quick.triggered.connect(lambda: self.diagram.changeAlgorithm('quick'))
+        algorithms.addAction(quick)
 
     def start(self) -> None:
         self.diagram.stop = False

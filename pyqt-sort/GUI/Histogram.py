@@ -18,7 +18,15 @@ class Histogram(QWidget):
         self.data = data
         self.rectangles = self.data2QRect(self.data)
 
-        self.iterator = quick_sort.QuickSort(self.data)
+        self.algorithms = {
+            'bubble': bubble_sort.BubbleSort,
+            'insertion': insertion_sort.InsertionSort,
+            'selection': selection_sort.SelectionSort,
+            'quick': quick_sort.QuickSort
+        }
+
+        self.algorithm = None
+        self.changeAlgorithm('bubble')
         self.stop = False
 
         self.setFixedSize(self.w, self.h)
@@ -26,8 +34,14 @@ class Histogram(QWidget):
 
         self.show()
 
+    def changeAlgorithm(self, algo: str) -> None:
+        self.stop = True
+        self.algorithm = self.algorithms[algo]
+        self.iterator = self.algorithm(self.data)
+
     def randomize(self) -> None:
-        self.iterator = quick_sort.QuickSort(self.data)
+        self.stop = False
+        self.iterator = self.algorithm(self.data)
         for i in range(len(self.data)):
             if self.stop: return
             idx = randint(0, i)
