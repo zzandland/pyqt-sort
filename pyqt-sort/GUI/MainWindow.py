@@ -54,6 +54,10 @@ class MainWindow(QMainWindow):
         quick.triggered.connect(lambda: self.diagram.changeAlgorithm('quick'))
         algorithms.addAction(quick)
 
+        merge = QAction('Merge Sort', self)
+        merge.triggered.connect(lambda: self.diagram.changeAlgorithm('merge'))
+        algorithms.addAction(merge)
+
     def start(self) -> None:
         self.diagram.stop = False
         self.diagram.randomize()

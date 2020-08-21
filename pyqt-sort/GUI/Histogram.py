@@ -3,9 +3,9 @@ from typing import List
 from random import randint
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtGui import QPainter, QPen, QBrush
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtTest import QTest
-from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort
+from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort, merge_sort
 
 class Histogram(QWidget):
 
@@ -22,7 +22,8 @@ class Histogram(QWidget):
             'bubble': bubble_sort.BubbleSort,
             'insertion': insertion_sort.InsertionSort,
             'selection': selection_sort.SelectionSort,
-            'quick': quick_sort.QuickSort
+            'quick': quick_sort.QuickSort,
+            'merge': merge_sort.MergeSort
         }
 
         self.algorithm = None
