@@ -1,5 +1,6 @@
 import sys
 from typing import List
+from random import randint
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtGui import QPainter, QPen, QBrush
 from PyQt5.QtWidgets import *
@@ -8,25 +9,39 @@ from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort
 
 class Histogram(QWidget):
 
-    def __init__(self, data: List[int], height: int, width: int):
+    def __init__(self, data: List[int], h: int, w: int):
         super(Histogram, self).__init__()
 
-        self.height = height
-        self.width = width
-        self.iterator = insertion_sort.InsertionSort(data)
         self.i = self.j = -1
-        self.rectangles = self.data2QRect(data)
+        self.h = h
+        self.w = w
+        self.data = data
+        self.rectangles = self.data2QRect(self.data)
 
-        self.resize(self.width, self.height)
+        self.iterator = quick_sort.QuickSort(self.data)
+        self.stop = False
+
+        self.setFixedSize(self.w, self.h)
         self.setStyleSheet('background-color: black')
 
         self.show()
-        self.sort()
+
+    def randomize(self) -> None:
+        self.iterator = quick_sort.QuickSort(self.data)
+        for i in range(len(self.data)):
+            if self.stop: return
+            idx = randint(0, i)
+            self.data[i], self.data[idx] = self.data[idx], self.data[i]
+            self.rectangles = self.data2QRect(self.data)
+            self.update()
+            QTest.qWait(1)
 
     def sort(self) -> None:
-        while self.iterator.hasNext():
+        self.i = self.j = -1
+        while not self.stop and self.iterator.hasNext():
             self.i, self.j = self.iterator.getPointers()
-            self.rectangles = self.data2QRect(self.iterator.next())
+            self.data = self.iterator.next()
+            self.rectangles = self.data2QRect(self.data)
             self.update()
             QTest.qWait(1)
 
@@ -45,10 +60,10 @@ class Histogram(QWidget):
     def data2QRect(self, data: List[int]) -> List[QRect]:
         res = []
         mxHeight = max(data)
-        thick = self.width // len(data)
+        thick = self.w // len(data)
         x = 0
         for val in data:
-            tall = round((val / mxHeight) * self.height)
-            res.append(QRect(x, self.height - tall, thick, tall))
+            tall = round((val / mxHeight) * self.h)
+            res.append(QRect(x, self.h - tall, thick, tall))
             x += thick
         return res
