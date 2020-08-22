@@ -9,33 +9,40 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.h = 700
-        self.w = 1500
-        self.N = 250
+        self.h = 500
+        self.w = 1000
+        self.N = 100
         self.setFixedSize(self.w, self.h)
         self.setStyleSheet('background-color: black')
 
-        self.genMenuBar()
-
-        self.data = [i+1 for i in range(self.N)]
-        self.diagram = Histogram(self.data, self.h, self.w)
-
+        self.diagram = Histogram(self.N, self.h, self.w)
         self.setCentralWidget(self.diagram)
-
+        self.genMenuBar()
         self.show()
 
     def genMenuBar(self) -> None:
         menubar = self.menuBar()
 
-        file = menubar.addMenu('File')
+        action = menubar.addMenu('Action')
 
         start = QAction('Start', self)
-        start.triggered.connect(self.start)
-        file.addAction(start)
+        start.triggered.connect(self.diagram.start)
+        action.addAction(start)
 
         stop = QAction('Stop', self)
-        stop.triggered.connect(self.stop)
-        file.addAction(stop)
+        stop.triggered.connect(self.diagram.end)
+        action.addAction(stop)
+
+        samples = menubar.addMenu('Samples')
+        one = QAction('100', self)
+        one.triggered.connect(lambda: self.diagram.changeSampleNumber(100))
+        samples.addAction(one)
+        two = QAction('200', self)
+        two.triggered.connect(lambda: self.diagram.changeSampleNumber(200))
+        samples.addAction(two)
+        five = QAction('500', self)
+        five.triggered.connect(lambda: self.diagram.changeSampleNumber(500))
+        samples.addAction(five)
 
         algorithms = menubar.addMenu('Algorithms')
 
@@ -58,11 +65,3 @@ class MainWindow(QMainWindow):
         merge = QAction('Merge Sort', self)
         merge.triggered.connect(lambda: self.diagram.changeAlgorithm('merge'))
         algorithms.addAction(merge)
-
-    def start(self) -> None:
-        self.diagram.stop = False
-        self.diagram.randomize()
-        self.diagram.sort()
-
-    def stop(self) -> None:
-        self.diagram.stop = True
