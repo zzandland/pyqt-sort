@@ -1,5 +1,5 @@
-from typing import List, Tuple
 from algorithms.iterator import Iterator
+from typing import List, Tuple
 
 class BubbleSort(Iterator):
 

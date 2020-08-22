@@ -1,8 +1,7 @@
 import sys
-from typing import List
-from PyQt5.QtWidgets import *
-
+from constants import ALGORITHMS
 from GUI.Histogram import Histogram
+from PyQt5.QtWidgets import *
 
 class MainWindow(QMainWindow):
 
@@ -46,22 +45,26 @@ class MainWindow(QMainWindow):
 
         algorithms = menubar.addMenu('Algorithms')
 
-        bubble = QAction('Bubble Sort', self)
+        bubble = QAction(ALGORITHMS['bubble'][0], self)
         bubble.triggered.connect(lambda: self.diagram.changeAlgorithm('bubble'))
         algorithms.addAction(bubble)
 
-        insertion = QAction('Insertion Sort', self)
+        insertion = QAction(ALGORITHMS['insertion'][0], self)
         insertion.triggered.connect(lambda: self.diagram.changeAlgorithm('insertion'))
         algorithms.addAction(insertion)
 
-        selection = QAction('Selection Sort', self)
+        selection = QAction(ALGORITHMS['selection'][0], self)
         selection.triggered.connect(lambda: self.diagram.changeAlgorithm('selection'))
         algorithms.addAction(selection)
 
-        quick = QAction('Quick Sort', self)
+        quick = QAction(ALGORITHMS['quick'][0], self)
         quick.triggered.connect(lambda: self.diagram.changeAlgorithm('quick'))
         algorithms.addAction(quick)
 
-        merge = QAction('Merge Sort', self)
+        merge = QAction(ALGORITHMS['merge'][0], self)
         merge.triggered.connect(lambda: self.diagram.changeAlgorithm('merge'))
         algorithms.addAction(merge)
+
+        heap = QAction(ALGORITHMS['heap'][0], self)
+        heap.triggered.connect(lambda: self.diagram.changeAlgorithm('heap'))
+        algorithms.addAction(heap)

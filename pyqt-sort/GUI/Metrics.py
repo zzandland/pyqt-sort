@@ -1,6 +1,6 @@
+from constants import ALGORITHMS
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
-from constants import ALGORITHMS
 
 class Metrics(QLabel):
 
@@ -11,7 +11,7 @@ class Metrics(QLabel):
         self.stop = stop
         self.time = time
 
-        self.setGeometry(50, 10, 400, 30)
+        self.setGeometry(30, 0, 400, 30)
         self.setAlignment(Qt.AlignTop)
         self.setStyleSheet('color: white; background-color: rgba(0,0,0,0%)')
         self.updateText()
@@ -19,6 +19,6 @@ class Metrics(QLabel):
         self.show()
 
     def updateText(self):
-        text = 'Selected algorithm: %s' % ALGORITHMS[self.algo]
-        if not self.stop: text += '\nRunning time: %f sec' % self.time
+        text = ALGORITHMS[self.algo][0]
+        if not self.stop: text += ': %f sec' % self.time
         self.setText(text)

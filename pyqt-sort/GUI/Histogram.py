@@ -1,12 +1,12 @@
-from timeit import default_timer as timer
-from typing import List
-from random import randint
+from constants import ALGORITHMS
+from GUI.Metrics import Metrics
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtGui import QPainter, QPen, QBrush
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtTest import QTest
-from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort, merge_sort
-from GUI.Metrics import Metrics
+from random import randint
+from timeit import default_timer as timer
+from typing import List
 
 class Histogram(QWidget):
 
@@ -19,14 +19,6 @@ class Histogram(QWidget):
         self.N = N
         self.data = [i+1 for i in range(self.N)]
         self.rectangles = self.data2QRect()
-
-        self.algorithms = {
-            'bubble': bubble_sort.BubbleSort,
-            'insertion': insertion_sort.InsertionSort,
-            'selection': selection_sort.SelectionSort,
-            'quick': quick_sort.QuickSort,
-            'merge': merge_sort.MergeSort
-        }
 
         self.algo = 'bubble'
         self.stop = True
@@ -41,25 +33,30 @@ class Histogram(QWidget):
         self.show()
 
     def changeSampleNumber(self, N: int) -> None:
+        self.stop = True
+        self.metrics.stop = True
+        self.metrics.updateText()
         self.N = N
         self.data = [i+1 for i in range(self.N)]
         self.rectangles = self.data2QRect()
         self.update()
 
     def changeAlgorithm(self, algo: str) -> None:
-        self.stop = True
+        self.end()
         self.algo = algo
-        self.iterator = self.algorithms[self.algo](self.data)
         self.metrics.algo = algo
         self.metrics.updateText()
 
     def start(self) -> None:
         self.stop = False
+        self.iterator = ALGORITHMS[self.algo][1](self.data)
         self.randomize()
         self.sort()
 
     def end(self) -> None:
         self.stop = True
+        self.metrics.stop = True
+        self.metrics.updateText()
         self.changeSampleNumber(self.N)
 
     def randomize(self) -> None:
@@ -67,6 +64,7 @@ class Histogram(QWidget):
         self.startTime = timer()
         self.metrics.stop = False
         for i in range(len(self.data)):
+            self.i = i
             if self.stop: return
             idx = randint(0, i)
             self.data[i], self.data[idx] = self.data[idx], self.data[i]
