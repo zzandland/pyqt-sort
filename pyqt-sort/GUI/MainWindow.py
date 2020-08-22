@@ -7,7 +7,7 @@ from GUI.Histogram import Histogram
 class MainWindow(QMainWindow):
 
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super().__init__()
 
         self.h = 700
         self.w = 1500

@@ -1,4 +1,3 @@
-import sys
 from typing import List
 from random import randint
 from PyQt5.QtCore import Qt, QRect
@@ -10,7 +9,7 @@ from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort, 
 class Histogram(QWidget):
 
     def __init__(self, data: List[int], h: int, w: int):
-        super(Histogram, self).__init__()
+        super().__init__()
 
         self.i = self.j = -1
         self.h = h
@@ -26,20 +25,19 @@ class Histogram(QWidget):
             'merge': merge_sort.MergeSort
         }
 
-        self.algorithm = None
-        self.changeAlgorithm('bubble')
+        self.algoSelection = 'bubble'
+        self.changeAlgorithm(self.algoSelection)
         self.stop = False
 
         self.show()
 
     def changeAlgorithm(self, algo: str) -> None:
         self.stop = True
-        self.algorithm = self.algorithms[algo]
-        self.iterator = self.algorithm(self.data)
+        self.algoSelection = algo
+        self.iterator = self.algorithms[self.algoSelection](self.data)
 
     def randomize(self) -> None:
         self.stop = False
-        self.iterator = self.algorithm(self.data)
         for i in range(len(self.data)):
             if self.stop: return
             idx = randint(0, i)
