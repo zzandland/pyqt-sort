@@ -51,6 +51,7 @@ class Histogram(QWidget):
         self.stop = False
         self.iterator = ALGORITHMS[self.algo][1](self.data)
         self.randomize()
+        self.startTime = timer()
         self.sort()
 
     def end(self) -> None:
@@ -61,8 +62,6 @@ class Histogram(QWidget):
 
     def randomize(self) -> None:
         self.stop = False
-        self.startTime = timer()
-        self.metrics.stop = False
         for i in range(len(self.data)):
             self.i = i
             if self.stop: return
@@ -70,12 +69,11 @@ class Histogram(QWidget):
             self.data[i], self.data[idx] = self.data[idx], self.data[i]
             self.rectangles = self.data2QRect()
             self.update()
-            self.metrics.time = timer() - self.startTime
-            self.metrics.updateText()
             QTest.qWait(1)
 
     def sort(self) -> None:
         self.i = self.j = -1
+        self.metrics.stop = False
         while not self.stop and self.iterator.hasNext():
             self.i, self.j = self.iterator.getPointers()
             self.data = self.iterator.next()
