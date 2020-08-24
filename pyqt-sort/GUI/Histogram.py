@@ -69,7 +69,7 @@ class Histogram(QWidget):
             self.data[i], self.data[idx] = self.data[idx], self.data[i]
             self.rectangles = self.data2QRect()
             self.update()
-            QTest.qWait(1)
+            QTest.qWait(0)
 
     def sort(self) -> None:
         self.i = self.j = -1
@@ -81,7 +81,7 @@ class Histogram(QWidget):
             self.update()
             self.metrics.time = timer() - self.startTime
             self.metrics.updateText()
-            QTest.qWait(1)
+            QTest.qWait(0)
 
         self.i = self.j = -1
         self.update()
