@@ -20,7 +20,7 @@ class HeapSort(Iterator):
             self.heapify(self.i)
             if self.i == -1: self.end = True
         else:
-            self.heapify(len(self.data))
+            self.heapify(len(self.data)-1)
             if self.i == -1:
                 self.i = len(self.data) - 1
                 self.j = 0
@@ -30,8 +30,8 @@ class HeapSort(Iterator):
     def heapify(self, N: int) -> None:
         largest = self.j
         l, r = largest*2 + 1, largest*2 + 2
-        if l < N and self.data[largest] < self.data[l]: largest = l
-        if r < N and self.data[largest] < self.data[r]: largest = r
+        if l <= N and self.data[largest] < self.data[l]: largest = l
+        if r <= N and self.data[largest] < self.data[r]: largest = r
         if largest != self.j:
             self.data[largest], self.data[self.j] = self.data[self.j], self.data[largest]
             self.j = largest
