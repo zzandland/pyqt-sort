@@ -7,5 +7,6 @@ ALGORITHMS = {
     'quick': ('Quick Sort', quick_sort.QuickSort),
     'merge': ('Merge Sort', merge_sort.MergeSort),
     'heap': ('Heap Sort', heap_sort.HeapSort),
-    'cycle': ('Cycle Sort', cycle_sort.CycleSort)
+    'cycle': ('Cycle Sort', cycle_sort.CycleSort),
+    'optimized_cycle': ('Cycle Sort (Optimized)', cycle_sort.OptimizedCycleSort)
 }

@@ -33,42 +33,26 @@ class MainWindow(QMainWindow):
         action.addAction(stop)
 
         samples = menubar.addMenu('Samples')
-        one = QAction('128', self)
-        one.triggered.connect(lambda: self.diagram.changeSampleNumber(128))
-        samples.addAction(one)
-        two = QAction('256', self)
-        two.triggered.connect(lambda: self.diagram.changeSampleNumber(256))
-        samples.addAction(two)
-        five = QAction('512', self)
-        five.triggered.connect(lambda: self.diagram.changeSampleNumber(512))
-        samples.addAction(five)
+        self.addMenuItem(samples, '128', 'sample_size')
+        self.addMenuItem(samples, '256', 'sample_size')
+        self.addMenuItem(samples, '512', 'sample_size')
 
         algorithms = menubar.addMenu('Algorithms')
+        self.addMenuItem(algorithms, 'bubble', 'algorithm')
+        self.addMenuItem(algorithms, 'insertion', 'algorithm')
+        self.addMenuItem(algorithms, 'selection', 'algorithm')
+        self.addMenuItem(algorithms, 'quick', 'algorithm')
+        self.addMenuItem(algorithms, 'merge', 'algorithm')
+        self.addMenuItem(algorithms, 'heap', 'algorithm')
+        self.addMenuItem(algorithms, 'cycle', 'algorithm')
+        self.addMenuItem(algorithms, 'optimized_cycle', 'algorithm')
 
-        bubble = QAction(ALGORITHMS['bubble'][0], self)
-        bubble.triggered.connect(lambda: self.diagram.changeAlgorithm('bubble'))
-        algorithms.addAction(bubble)
-
-        insertion = QAction(ALGORITHMS['insertion'][0], self)
-        insertion.triggered.connect(lambda: self.diagram.changeAlgorithm('insertion'))
-        algorithms.addAction(insertion)
-
-        selection = QAction(ALGORITHMS['selection'][0], self)
-        selection.triggered.connect(lambda: self.diagram.changeAlgorithm('selection'))
-        algorithms.addAction(selection)
-
-        quick = QAction(ALGORITHMS['quick'][0], self)
-        quick.triggered.connect(lambda: self.diagram.changeAlgorithm('quick'))
-        algorithms.addAction(quick)
-
-        merge = QAction(ALGORITHMS['merge'][0], self)
-        merge.triggered.connect(lambda: self.diagram.changeAlgorithm('merge'))
-        algorithms.addAction(merge)
-
-        heap = QAction(ALGORITHMS['heap'][0], self)
-        heap.triggered.connect(lambda: self.diagram.changeAlgorithm('heap'))
-        algorithms.addAction(heap)
-
-        cycle = QAction(ALGORITHMS['cycle'][0], self)
-        cycle.triggered.connect(lambda: self.diagram.changeAlgorithm('cycle'))
-        algorithms.addAction(cycle)
+    def addMenuItem(self, menu: object, item: str, category: str) -> None:
+        if category == 'algorithm':
+            new = QAction(ALGORITHMS[item][0], self)
+            new.triggered.connect(lambda: self.diagram.changeAlgorithm(item))
+            menu.addAction(new)
+        elif category == 'sample_size':
+            new = QAction(item, self)
+            new.triggered.connect(lambda: self.diagram.changeSampleNumber(int(item)))
+            menu.addAction(new)
