@@ -8,9 +8,9 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.h = 500
-        self.w = 1000
-        self.N = 100
+        self.h = 512
+        self.w = 1024
+        self.N = 128
         self.setFixedSize(self.w, self.h)
         self.setStyleSheet('background-color: black')
 
@@ -33,14 +33,14 @@ class MainWindow(QMainWindow):
         action.addAction(stop)
 
         samples = menubar.addMenu('Samples')
-        one = QAction('100', self)
-        one.triggered.connect(lambda: self.diagram.changeSampleNumber(100))
+        one = QAction('128', self)
+        one.triggered.connect(lambda: self.diagram.changeSampleNumber(128))
         samples.addAction(one)
-        two = QAction('225', self)
-        two.triggered.connect(lambda: self.diagram.changeSampleNumber(225))
+        two = QAction('256', self)
+        two.triggered.connect(lambda: self.diagram.changeSampleNumber(256))
         samples.addAction(two)
-        five = QAction('500', self)
-        five.triggered.connect(lambda: self.diagram.changeSampleNumber(500))
+        five = QAction('512', self)
+        five.triggered.connect(lambda: self.diagram.changeSampleNumber(512))
         samples.addAction(five)
 
         algorithms = menubar.addMenu('Algorithms')
