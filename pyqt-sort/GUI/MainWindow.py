@@ -68,3 +68,7 @@ class MainWindow(QMainWindow):
         heap = QAction(ALGORITHMS['heap'][0], self)
         heap.triggered.connect(lambda: self.diagram.changeAlgorithm('heap'))
         algorithms.addAction(heap)
+
+        cycle = QAction(ALGORITHMS['cycle'][0], self)
+        cycle.triggered.connect(lambda: self.diagram.changeAlgorithm('cycle'))
+        algorithms.addAction(cycle)
