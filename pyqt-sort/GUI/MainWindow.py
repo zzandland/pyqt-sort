@@ -40,6 +40,7 @@ class MainWindow(QMainWindow):
         algorithms = menubar.addMenu('Algorithms')
         self.addMenuItem(algorithms, 'bubble', 'algorithm')
         self.addMenuItem(algorithms, 'insertion', 'algorithm')
+        self.addMenuItem(algorithms, 'binary_insertion', 'algorithm')
         self.addMenuItem(algorithms, 'selection', 'algorithm')
         self.addMenuItem(algorithms, 'quick', 'algorithm')
         self.addMenuItem(algorithms, 'merge', 'algorithm')

@@ -3,6 +3,7 @@ from algorithms import insertion_sort, bubble_sort, selection_sort, quick_sort, 
 ALGORITHMS = {
     'bubble': ('Bubble Sort', bubble_sort.BubbleSort),
     'insertion': ('Insertion Sort', insertion_sort.InsertionSort),
+    'binary_insertion': ('Binary Insertion Sort', insertion_sort.BinaryInsertionSort),
     'selection': ('Selection Sort', selection_sort.SelectionSort),
     'quick': ('Quick Sort', quick_sort.QuickSort),
     'merge': ('Merge Sort', merge_sort.MergeSort),
