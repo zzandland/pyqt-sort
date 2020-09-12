@@ -38,15 +38,8 @@ class MainWindow(QMainWindow):
         self.addMenuItem(samples, '512', 'sample_size')
 
         algorithms = menubar.addMenu('Algorithms')
-        self.addMenuItem(algorithms, 'bubble', 'algorithm')
-        self.addMenuItem(algorithms, 'insertion', 'algorithm')
-        self.addMenuItem(algorithms, 'binary_insertion', 'algorithm')
-        self.addMenuItem(algorithms, 'selection', 'algorithm')
-        self.addMenuItem(algorithms, 'quick', 'algorithm')
-        self.addMenuItem(algorithms, 'merge', 'algorithm')
-        self.addMenuItem(algorithms, 'heap', 'algorithm')
-        self.addMenuItem(algorithms, 'cycle', 'algorithm')
-        self.addMenuItem(algorithms, 'optimized_cycle', 'algorithm')
+        for algo in ALGORITHMS.keys():
+            self.addMenuItem(algorithms, algo, 'algorithm')
 
     def addMenuItem(self, menu: object, item: str, category: str) -> None:
         if category == 'algorithm':

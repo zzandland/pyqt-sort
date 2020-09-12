@@ -49,8 +49,8 @@ class Histogram(QWidget):
 
     def start(self) -> None:
         self.stop = False
-        self.iterator = ALGORITHMS[self.algo][1](self.data)
         self.randomize()
+        self.iterator = ALGORITHMS[self.algo][1](self.data)
         self.startTime = timer()
         self.sort()
 
