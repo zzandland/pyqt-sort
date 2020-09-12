@@ -3,7 +3,7 @@ A simple GUI program built with PyQt5 that visualizes various sorting algorithms
 
 - Three different sample sizes: 128, 256, and 512
 
-- 9 different sorting algorithms:
+- 9 different sorting algorithms: <small>*n = length of the array / k = biggest value in the array*</small>
 
 | Algorithm                      | Time (Average)       | Time (Worst)         | Time (Best)          | Space           |
 | :-----------------------------:|:--------------------:|:--------------------:|:--------------------:|:---------------:|
@@ -16,8 +16,9 @@ A simple GUI program built with PyQt5 that visualizes various sorting algorithms
 | Quick Sort                     | O( *n log(n)* )      | O( *n<sup>2</sup>* ) | O( *n log(n)* )      | O( *n log(n)* ) |
 | Merge Sort                     | O( *n log(n)* )      | O( *n log(n)* )      | O( *n log(n)* )      | O( *n* )        |
 | Heap Sort                      | O( *n log(n)* )      | O( *n log(n)* )      | O( *n log(n)* )      | O( 1 )          |
+| Counting Sort                  | O( *n + k* )         | O( *n + k* )         | O( *n + k* )         | O( *k* )        |
 
 #### To do list
-- Add Counting Sort
+- ~~Add Counting Sort~~ (09/12/2020)
 - Add Radix Sort (MSD * LSD)
 - Support for multithreading so that two sorting can start simultaneously for real-time comparison 
