@@ -36,6 +36,9 @@ class MainWindow(QMainWindow):
         self.addMenuItem(samples, '128', 'sample_size')
         self.addMenuItem(samples, '256', 'sample_size')
         self.addMenuItem(samples, '512', 'sample_size')
+        dup = QAction('Duplicate', self, checkable=True)
+        dup.triggered.connect(lambda: self.diagram.toggleDup())
+        samples.addAction(dup)
 
         algorithms = menubar.addMenu('Algorithms')
         for algo in ALGORITHMS.keys():

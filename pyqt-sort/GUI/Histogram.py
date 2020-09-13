@@ -22,6 +22,7 @@ class Histogram(QWidget):
 
         self.algo = 'bubble'
         self.stop = True
+        self.dup = False
 
         self.metrics = Metrics(self.algo, self.stop)
         self.metrics.setParent(self)
@@ -40,6 +41,10 @@ class Histogram(QWidget):
         self.data = [i+1 for i in range(self.N)]
         self.rectangles = self.data2QRect()
         self.update()
+
+    def toggleDup(self) -> None:
+        self.dup = not self.dup
+        self.end()
 
     def changeAlgorithm(self, algo: str) -> None:
         self.end()
@@ -65,8 +70,12 @@ class Histogram(QWidget):
         for i in range(len(self.data)):
             self.i = i
             if self.stop: return
-            idx = randint(0, i)
-            self.data[i], self.data[idx] = self.data[idx], self.data[i]
+            if self.dup:
+                val = randint(1, self.N)
+                self.data[i] = val
+            else:
+                idx = randint(0, i)
+                self.data[i], self.data[idx] = self.data[idx], self.data[i]
             self.rectangles = self.data2QRect()
             self.update()
             QTest.qWait(0)
