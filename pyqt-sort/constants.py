@@ -12,3 +12,5 @@ ALGORITHMS = {
     'optimized_cycle': ('Cycle Sort (Optimized)', cycle_sort.OptimizedCycleSort),
     'counting': ('Counting Sort', counting_sort.CountingSort)
 }
+
+BLACKLIST = {'optimized_cycle'}

@@ -42,10 +42,6 @@ class Histogram(QWidget):
         self.rectangles = self.data2QRect()
         self.update()
 
-    def toggleDup(self) -> None:
-        self.dup = not self.dup
-        self.end()
-
     def changeAlgorithm(self, algo: str) -> None:
         self.end()
         self.algo = algo
