@@ -17,7 +17,8 @@ class Histogram(QWidget):
         self.h = h
         self.w = w
         self.N = N
-        self.data = [i+1 for i in range(self.N)]
+        self.mxVal = self.N
+        self.data = [0] * self.N
         self.rectangles = self.data2QRect()
 
         self.algo = 'bubble'
@@ -37,8 +38,8 @@ class Histogram(QWidget):
         self.stop = True
         self.metrics.stop = True
         self.metrics.updateText()
-        self.N = N
-        self.data = [i+1 for i in range(self.N)]
+        self.N = self.mxVal = N
+        self.data = [0] * self.N
         self.rectangles = self.data2QRect()
         self.update()
 
@@ -63,11 +64,12 @@ class Histogram(QWidget):
 
     def randomize(self) -> None:
         self.stop = False
-        for i in range(len(self.data)):
+        if not self.dup: self.data = [i+1 for i in range(self.N)]
+        for i in range(self.N):
             self.i = i
             if self.stop: return
             if self.dup:
-                val = randint(1, self.N)
+                val = randint(1, self.mxVal)
                 self.data[i] = val
             else:
                 idx = randint(0, i)
@@ -105,7 +107,7 @@ class Histogram(QWidget):
         thick = self.w // self.N
         x = 0
         for val in self.data:
-            tall = int((val / (self.N+1)) * self.h)
+            tall = int((val / (self.mxVal+1)) * self.h)
             res.append(QRect(x, self.h - tall, thick, tall))
             x += thick
         return res

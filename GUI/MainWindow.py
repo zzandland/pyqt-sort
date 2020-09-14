@@ -10,13 +10,12 @@ class MainWindow(QMainWindow):
 
         self.h = 512
         self.w = 1024
-        self.N = 128
         self.blackList = []
         self.dup = False
         self.setFixedSize(self.w, self.h)
         self.setStyleSheet('background-color: black')
 
-        self.diagram = Histogram(self.N, self.h, self.w)
+        self.diagram = Histogram(128, self.h, self.w)
         self.setCentralWidget(self.diagram)
         self.genMenuBar()
         self.show()
@@ -50,6 +49,7 @@ class MainWindow(QMainWindow):
         self.dup = not self.dup
         self.diagram.dup = self.dup
         self.diagram.end()
+        self.diagram.mxVal = 30 if self.dup else self.diagram.N
         for action in self.blackList:
             action.setEnabled(not self.dup)
 
