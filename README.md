@@ -1,4 +1,7 @@
 # pyqt-sort
+
+![preview](/preview.gif?raw=true "Preview")
+
 A simple GUI program built with PyQt5 that visualizes various sorting algorithms. Currently the program supports:
 
 - Three different sample sizes: 128, 256, and 512
